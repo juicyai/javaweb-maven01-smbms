@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public interface UserDao {
-    public User getLoginUser(Connection conn,String userCode) throws SQLException;
+    //获取当前用户
+    public User getLoginUser(Connection conn,String userCode,String password) throws SQLException;
+    //修改用户密码
+    public int updateUserPWD(Connection conn,int userId,String password) throws SQLException;
 
 }

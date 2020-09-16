@@ -14,9 +14,24 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!--注册sysfilter-->
+    <filter>
+        <filter-name>sysFilter</filter-name>
+        <filter-class>com.koki.filter.SysFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sysFilter</filter-name>
+        <url-pattern>/jsp/*</url-pattern>
+    </filter-mapping>
+
+
+
+    <!--欢迎页面-->
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
+
+    <!--注册登陆页面-->
     <servlet>
         <servlet-name>login</servlet-name>
         <servlet-class>com.koki.servlet.user.LoginServlet</servlet-class>
@@ -25,5 +40,32 @@
         <servlet-name>login</servlet-name>
         <url-pattern>/login.do</url-pattern>
     </servlet-mapping>
+
+    <!--注销登录-->
+    <servlet>
+        <servlet-name>loginOut</servlet-name>
+        <servlet-class>com.koki.servlet.user.loginOutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginOut</servlet-name>
+        <url-pattern>/jsp/logout.do</url-pattern>
+    </servlet-mapping>
+
+    <!--修改密码-->
+    <servlet>
+        <servlet-name>updatePWD</servlet-name>
+        <servlet-class>com.koki.servlet.user.UserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>updatePWD</servlet-name>
+        <url-pattern>/jsp/user.do</url-pattern>
+    </servlet-mapping>
+
+    <!--设置session过期时间-->
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+
 
 </web-app>
