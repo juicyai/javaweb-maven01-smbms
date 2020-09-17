@@ -51,7 +51,7 @@
         <url-pattern>/jsp/logout.do</url-pattern>
     </servlet-mapping>
 
-    <!--修改密码-->
+    <!--servlet复用，实现修改密码,显示用户列表-->
     <servlet>
         <servlet-name>updatePWD</servlet-name>
         <servlet-class>com.koki.servlet.user.UserServlet</servlet-class>
@@ -60,6 +60,7 @@
         <servlet-name>updatePWD</servlet-name>
         <url-pattern>/jsp/user.do</url-pattern>
     </servlet-mapping>
+
 
     <!--设置session过期时间-->
     <session-config>
