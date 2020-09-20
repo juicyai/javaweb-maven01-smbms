@@ -19,5 +19,11 @@ public interface UserDao {
     public List<User> getUserList(Connection conn, String userName, int userRole,int currentPageNo,int pageSize) throws SQLException;
     //获取角色列表
     public List<Role> getRoleList(Connection conn) throws SQLException;
+    //添加用户
+    public int addUser(Connection conn,User user) throws SQLException;
+    //修改用户信息
+    public int modifyUser(Connection conn,int userId);
+    //删除用户
+    public int delUser(Connection conn,int userId) throws SQLException;
 
 }

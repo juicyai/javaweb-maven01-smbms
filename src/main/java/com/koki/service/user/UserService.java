@@ -19,4 +19,10 @@ public interface UserService {
     public List<User> getUserList(String userName, int userRole, int currentPageNo, int pageSize);
     //获取角色列表
     public List<Role> getRoleList();
+    //添加用户
+    public boolean addUser(User user);
+    //修改用户
+    public boolean modifyUser();
+    //删除用户
+    public boolean delUser(int userId);
 }

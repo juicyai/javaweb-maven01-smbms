@@ -11,7 +11,7 @@ public class User {
     private Date birthday;
     private String phone;
     private String address;
-    private String userRole;
+    private Integer userRole;
     private Integer createdBy;
     private Date creationDate;
     private Integer modifyBy;
@@ -90,11 +90,11 @@ public class User {
         this.address = address;
     }
 
-    public String getUserRole() {
+    public Integer getUserRole() {
         return userRole;
     }
 
-    public void setUserRole(String userRole) {
+    public void setUserRole(Integer userRole) {
         this.userRole = userRole;
     }
 

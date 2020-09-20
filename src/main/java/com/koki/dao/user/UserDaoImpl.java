@@ -182,4 +182,45 @@ public class UserDaoImpl implements UserDao{
         }
         return roleList;
     }
+
+    @Override
+    public int addUser(Connection conn, User user) throws SQLException {
+        PreparedStatement ps=null;
+        int rows=0;
+        String sql="INSERT INTO smbms_user(userCode,userName,userPassword,gender,birthday," +
+                "phone,address,userRole,createdBy,creationDate) VALUES(?,?,?,?,?,?,?,?,?,?)";
+        Object[] params={user.getUserCode(),user.getUserName(),user.getUserPassword(),
+                user.getGender(),user.getBirthday(),user.getPhone(),user.getAddress(),
+                user.getUserRole(),user.getCreatedBy(),user.getCreationDate()};
+        if(conn!=null) {
+            ps = conn.prepareStatement(sql);
+            rows=BaseDao.excute(conn, ps, sql, params);
+            BaseDao.closeResource(null,ps,null);
+            }
+        return rows;
+
+
+    }
+
+    @Override
+    public int modifyUser(Connection conn, int userId) {
+        PreparedStatement ps=null;
+        int rows=0;
+        sql="UPDATE smbms_user SET "
+    }
+
+    @Override
+    public int delUser(Connection conn, int userId) throws SQLException {
+        PreparedStatement ps=null;
+        int rows=0;
+        String sql="DELETE FROM smbms_user WHERE id=UserId";
+        Object[] params={};
+        if(conn!=null){
+            conn.prepareStatement(sql);
+            rows = BaseDao.excute(conn, ps, sql, params);
+            BaseDao.closeResource(null,ps,null);
+
+        }
+        return rows;
+    }
 }

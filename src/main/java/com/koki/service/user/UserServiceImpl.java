@@ -99,6 +99,67 @@ public class UserServiceImpl implements UserService{
         return roleList;
     }
 
+    @Override
+    public boolean addUser(User user) {
+
+        Connection conn=BaseDao.getConnection();
+        boolean flag=false;
+
+        try {
+            UserDao userDao = new UserDaoImpl();
+            conn.setAutoCommit(false);//开启JDBC事务管理
+            int rows = userDao.addUser(conn, user);
+            if(rows>0){
+                flag=true;
+                System.out.println("add user success");
+            }else {
+                System.out.println("add user fail");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }finally {
+            BaseDao.closeResource(conn, null, null);
+        }
+        return flag;
+
+    }
+
+    @Override
+    public boolean modifyUser() {
+        return false;
+    }
+
+    @Override
+    public boolean delUser(int userId) {
+        Connection conn=BaseDao.getConnection();
+        boolean flag=false;
+        try {
+            conn.setAutoCommit(false);
+            UserService userService = new UserServiceImpl();
+            if(userService.delUser(userId)){
+                flag=true;
+                System.out.println("成功删除用户");
+            }else {
+                System.out.println("删除用户失败");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            try {
+                conn.rollback();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }finally {
+            BaseDao.closeResource(conn,null,null);
+        }
+        return false;
+    }
+
     @Test
     public void test() {
         UserService userService = new UserServiceImpl();

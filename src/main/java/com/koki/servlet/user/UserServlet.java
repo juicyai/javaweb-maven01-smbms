@@ -1,6 +1,7 @@
 package com.koki.servlet.user;
 
 import com.alibaba.fastjson.JSONArray;
+import com.koki.dao.BaseDao;
 import com.koki.pojo.Role;
 import com.koki.pojo.User;
 import com.koki.service.user.UserService;
@@ -15,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +36,9 @@ public class UserServlet extends HttpServlet {
             this.pwdmodify(req,resp);
         }else if(method!=null && method.equals("query")){
             this.query(req,resp);
-        }
+        }else if(method!=null && method.equals("add")){
+            this.addUser(req,resp);
+        }else if(method!=null && method.equals("delUser"))
 
         System.out.println("ending servlet---");
 
@@ -164,6 +170,32 @@ public class UserServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+    //add user
+    public void addUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = new User();
+        user.setUserCode( req.getParameter("userCode"));
+        user.setUserName(req.getParameter("userName"));
+        user.setUserPassword(req.getParameter("userPassword"));
+        user.setGender(Integer.valueOf(req.getParameter("gender")));
+        try {
+            user.setBirthday(new SimpleDateFormat("yyyy-MM-dd").parse(req.getParameter("birthday")));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        user.setPhone(req.getParameter("phone"));
+        user.setAddress(req.getParameter("ddress"));
+        user.setUserRole(Integer.valueOf(req.getParameter("userRole")));
+        user.setCreatedBy(((User)req.getSession().getAttribute(Constant.USER_SESSION)).getId());
+        user.setCreationDate(new Date());
+        UserService userService = new UserServiceImpl();
+        if(userService.addUser(user)){
+            resp.sendRedirect(req.getContextPath()+"/jsp/user.do?method=query");
+        }else {
+            req.getRequestDispatcher("jsp/useradd.jsp").forward(req,resp);
+        }
+
 
     }
 }
